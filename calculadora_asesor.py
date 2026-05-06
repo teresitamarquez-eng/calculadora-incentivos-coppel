@@ -16,23 +16,16 @@ st.markdown("""
 .stMarkdown    { margin-bottom: -8px  !important; }
 div[data-testid="stVerticalBlock"] > div { gap: 0rem !important; }
 div.block-container { padding-top: 1rem !important; }
-[data-testid="stSidebar"]                { display: none !important; }
-button[data-testid="collapsedControl"]   { display: none !important; }
-[data-testid="stSidebarCollapseButton"]  { display: none !important; }
-.header-coppel {
-    background: linear-gradient(135deg, #003DA5, #0056D6);
-    padding: 16px 20px; border-radius: 16px; text-align: center;
-    margin-bottom: 12px; box-shadow: 0 4px 12px rgba(0,61,165,0.3);
-}
-.header-coppel h1 { font-size: 1.4em; margin: 6px 0 0 0; color: #FFD100 !important; }
-.header-coppel p  { margin: 4px 0 0 0; font-size: 0.9em; color: white; }
+[data-testid="stSidebar"]               { display: none !important; }
+button[data-testid="collapsedControl"]  { display: none !important; }
+[data-testid="stSidebarCollapseButton"] { display: none !important; }
 .seccion-card {
     background: white; border-radius: 16px; padding: 14px 18px;
     margin-bottom: 10px; border-left: 5px solid #003DA5;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 .seccion-titulo { color: #003DA5; font-size: 1em; font-weight: bold; margin-bottom: 2px; }
-.divider-azul   { border: none; border-top: 1.5px solid #003DA5; opacity: 0.2; margin: 6px 0 10px 0; }
+.divider-azul { border: none; border-top: 1.5px solid #003DA5; opacity: 0.2; margin: 6px 0 10px 0; }
 .resultado-card {
     background: linear-gradient(135deg, #003DA5, #0056D6);
     border-radius: 16px; padding: 20px; text-align: center;
@@ -58,27 +51,46 @@ button[data-testid="collapsedControl"]   { display: none !important; }
 
 # ── HELPERS ─────────────────────────────────────────────
 def card_open(titulo):
-    st.markdown(f'<div class="seccion-card"><div class="seccion-titulo">{titulo}</div><hr class="divider-azul">', unsafe_allow_html=True)
+    st.markdown(
+        f'<div class="seccion-card"><div class="seccion-titulo">{titulo}</div><hr class="divider-azul">',
+        unsafe_allow_html=True)
 
 def card_close():
     st.markdown('</div>', unsafe_allow_html=True)
 
 def metrica(etiqueta, valor):
-    st.markdown(f'<div class="metrica-box"><div class="metrica-etiqueta">{etiqueta}</div><div class="metrica-valor">{valor}</div></div>', unsafe_allow_html=True)
+    st.markdown(
+        f'<div class="metrica-box"><div class="metrica-etiqueta">{etiqueta}</div><div class="metrica-valor">{valor}</div></div>',
+        unsafe_allow_html=True)
 
 def chip(tipo, texto):
     st.markdown(f'<span class="chip-{tipo}">{texto}</span>', unsafe_allow_html=True)
 
 def resultado_final(total, desglose):
-    st.markdown(f'<div class="resultado-card"><div class="resultado-label">🏆 TU INCENTIVO TOTAL DEL MES</div><div class="resultado-total">${total:,.2f}</div><br><div style="font-size:0.82em;color:#cce0ff;">{desglose}</div></div>', unsafe_allow_html=True)
+    st.markdown(
+        f'''<div class="resultado-card">
+            <div class="resultado-label">🏆 TU INCENTIVO TOTAL DEL MES</div>
+            <div class="resultado-total">${total:,.2f}</div>
+            <br>
+            <div style="font-size:0.82em;color:#cce0ff;">{desglose}</div>
+        </div>''',
+        unsafe_allow_html=True)
 
 def mostrar_header(subtitulo):
     logo_html = ""
     if os.path.exists("logo_coppel.png"):
         with open("logo_coppel.png", "rb") as f:
             logo_b64 = base64.b64encode(f.read()).decode()
-        logo_html = f'<img src="data:image/png;base64,{logo_b64}" style="height:36px; margin-bottom:4px;"><br>'
-    st.markdown(f'<div class="header-coppel">{logo_html}<h1>🏆 Calculadora de Incentivos</h1><p>{subtitulo} — Coppel</p></div>', unsafe_allow_html=True)
+        logo_html = f'<img src="data:image/png;base64,{logo_b64}" style="height:36px;margin-bottom:4px;"><br>'
+    st.markdown(
+        f'''<div style="background:linear-gradient(135deg,#003DA5,#0056D6);
+            padding:16px 20px;border-radius:16px;text-align:center;
+            margin-bottom:12px;box-shadow:0 4px 12px rgba(0,61,165,0.3);">
+            {logo_html}
+            <span style="font-size:1.4em;font-weight:bold;color:#FFD100;">🏆 Calculadora de Incentivos</span><br>
+            <span style="color:white;font-size:0.9em;">{subtitulo} — Coppel</span>
+        </div>''',
+        unsafe_allow_html=True)
 
 def incentivo_base_asesor(cump):
     if cump < 85:    return 0
@@ -115,20 +127,22 @@ def seccion_comisiones_asesor(cump_equipo, prefix):
     with col3: metrica("📊 Total Comisiones",     f"${total_comision:,.2f}")
     return total_comision
 
-# ── MENÚ SUPERIOR ───────────────────────────────────────
+# ── ENCABEZADO PRINCIPAL ────────────────────────────────
 logo_html = ""
 if os.path.exists("logo_coppel.png"):
     with open("logo_coppel.png", "rb") as f:
         logo_b64 = base64.b64encode(f.read()).decode()
-    logo_html = f'<img src="data:image/png;base64,{logo_b64}" style="height:40px; margin-bottom:6px;"><br>'
+    logo_html = f'<img src="data:image/png;base64,{logo_b64}" style="height:40px;margin-bottom:6px;"><br>'
 
-st.markdown(f'''<div style="background:linear-gradient(135deg,#003DA5,#0056D6);
-    padding:16px 20px; border-radius:16px; text-align:center;
-    margin-bottom:12px; box-shadow:0 4px 12px rgba(0,61,165,0.3);">
-    {logo_html}
-    <span style="font-size:1.4em; font-weight:bold; color:#FFD100;">🏆 Incentivos Coppel</span><br>
-    <span style="color:white; font-size:0.88em;">Selecciona tu puesto para calcular tu incentivo</span>
-</div>''', unsafe_allow_html=True)
+st.markdown(
+    f'''<div style="background:linear-gradient(135deg,#003DA5,#0056D6);
+        padding:16px 20px;border-radius:16px;text-align:center;
+        margin-bottom:12px;box-shadow:0 4px 12px rgba(0,61,165,0.3);">
+        {logo_html}
+        <span style="font-size:1.4em;font-weight:bold;color:#FFD100;">🏆 Incentivos Coppel</span><br>
+        <span style="color:white;font-size:0.88em;">Selecciona tu puesto para calcular tu incentivo</span>
+    </div>''',
+    unsafe_allow_html=True)
 
 puesto = st.selectbox("👤 ¿Cuál es tu puesto?", options=[
     "🛒 Asesor de Ventas",
@@ -144,7 +158,8 @@ st.markdown('<hr class="divider-azul">', unsafe_allow_html=True)
 def pantalla_asesor(titulo, prefix):
     mostrar_header(titulo)
     card_open("🤝 Paso 1 — Venta de Equipo")
-    cump_equipo = st.number_input("% Cumplimiento meta del equipo", min_value=0.0, max_value=200.0, step=0.01, format="%.2f", key=f"{prefix}_equipo")
+    cump_equipo = st.number_input("% Cumplimiento meta del equipo",
+        min_value=0.0, max_value=200.0, step=0.01, format="%.2f", key=f"{prefix}_equipo")
     incentivo_base = incentivo_base_asesor(cump_equipo)
     if cump_equipo < 85:    chip("rojo",     "❌ < 85% — Sin incentivo base")
     elif cump_equipo < 100: chip("amarillo", "⚠️ Cumplimiento parcial")
@@ -152,8 +167,10 @@ def pantalla_asesor(titulo, prefix):
     metrica("💰 Incentivo Base", f"${incentivo_base:,.2f}")
     card_close()
     card_open("✖️ Paso 2 — Multiplicadores")
-    cump_credito = st.number_input("% Cumplimiento Venta a Crédito", min_value=0.0, max_value=200.0, step=0.01, format="%.2f", key=f"{prefix}_credito")
-    cump_digital = st.number_input("% Cumplimiento Cliente Digital Avanzado", min_value=0.0, max_value=200.0, step=0.01, format="%.2f", key=f"{prefix}_digital")
+    cump_credito = st.number_input("% Cumplimiento Venta a Crédito",
+        min_value=0.0, max_value=200.0, step=0.01, format="%.2f", key=f"{prefix}_credito")
+    cump_digital = st.number_input("% Cumplimiento Cliente Digital Avanzado",
+        min_value=0.0, max_value=200.0, step=0.01, format="%.2f", key=f"{prefix}_digital")
     multiplicador = 1.0
     if cump_credito >= 95:
         multiplicador += 0.20
@@ -174,7 +191,8 @@ def pantalla_asesor(titulo, prefix):
     total_comisiones = seccion_comisiones_asesor(cump_equipo, prefix)
     card_close()
     card_open("🏪 Paso 4 — Bono por Venta de Tienda")
-    cump_tienda = st.number_input("% Cumplimiento meta de la tienda", min_value=0.0, max_value=200.0, step=0.01, format="%.2f", key=f"{prefix}_tienda")
+    cump_tienda = st.number_input("% Cumplimiento meta de la tienda",
+        min_value=0.0, max_value=200.0, step=0.01, format="%.2f", key=f"{prefix}_tienda")
     bono_tienda = 0.20 if cump_tienda >= 100 else 0.0
     if cump_tienda >= 100: chip("verde", "✅ Tienda ≥ 100% — Bono adicional del 20%")
     else:                  chip("rojo",  "❌ Tienda < 100% — Sin bono adicional")
@@ -186,7 +204,6 @@ def pantalla_asesor(titulo, prefix):
         f"Base: ${incentivo_base:,.2f} | ×{multiplicador:.2f} = ${incentivo_con_mult:,.2f}<br>"
         f"Comisiones: ${total_comisiones:,.2f} | Bono Tienda: ${bono_extra:,.2f}")
 
-# ── PUESTOS ─────────────────────────────────────────────
 if   puesto == "🛒 Asesor de Ventas": pantalla_asesor("Asesor de Ventas", "av")
 elif puesto == "📱 Asesor Telefonía": pantalla_asesor("Asesor Telefonía",  "at")
 elif puesto == "👁️ Optometrista":     pantalla_asesor("Optometrista",      "opt")
@@ -194,7 +211,8 @@ elif puesto == "👁️ Optometrista":     pantalla_asesor("Optometrista",      
 elif puesto == "⚙️ Operativos":
     mostrar_header("Operativos")
     card_open("🏪 Paso 1 — Venta de Tienda")
-    cump_tienda = st.number_input("% Cumplimiento meta de la tienda", min_value=0.0, max_value=200.0, step=0.01, format="%.2f", key="ope_tienda")
+    cump_tienda = st.number_input("% Cumplimiento meta de la tienda",
+        min_value=0.0, max_value=200.0, step=0.01, format="%.2f", key="ope_tienda")
     def incentivo_operativo(c):
         if c < 89:    return 0
         elif c < 95:  return 200
@@ -237,7 +255,8 @@ elif puesto == "⚙️ Operativos":
 elif puesto == "💰 Cajero Multifuncional":
     mostrar_header("Cajero Multifuncional")
     card_open("💳 Paso 1 — Cobranza")
-    cump_cobranza = st.number_input("% Cumplimiento meta de cobranza", min_value=0.0, max_value=200.0, step=0.01, format="%.2f", key="caj_cobranza")
+    cump_cobranza = st.number_input("% Cumplimiento meta de cobranza",
+        min_value=0.0, max_value=200.0, step=0.01, format="%.2f", key="caj_cobranza")
     def incentivo_cajero(c):
         if c < 89:    return 0
         elif c < 95:  return 200
@@ -283,12 +302,14 @@ elif puesto == "💰 Cajero Multifuncional":
     metrica("📊 Total Comisiones", f"${total_comision:,.2f}")
     card_close()
     resultado_final(incentivo_con_mult + total_comision,
-        f"Base: ${incentivo_base:,.2f} | ×{multiplicador:.2f} = ${incentivo_con_mult:,.2f}<br>Comisiones: ${total_comision:,.2f}")
+        f"Base: ${incentivo_base:,.2f} | ×{multiplicador:.2f} = ${incentivo_con_mult:,.2f}<br>"
+        f"Comisiones: ${total_comision:,.2f}")
 
 elif puesto == "👔 Gerente Titular":
     mostrar_header("Gerente Titular")
     card_open("⚠️ Requisito — Cumplimiento Mínimo de Tienda")
-    cump_tienda = st.number_input("% Cumplimiento meta de venta de la tienda", min_value=0.0, max_value=200.0, step=0.01, format="%.2f", key="ger_tienda")
+    cump_tienda = st.number_input("% Cumplimiento meta de venta de la tienda",
+        min_value=0.0, max_value=200.0, step=0.01, format="%.2f", key="ger_tienda")
     if cump_tienda < 89:
         chip("rojo", "❌ < 89% — No se genera incentivo en ningún rubro")
         card_close()
@@ -310,7 +331,8 @@ elif puesto == "👔 Gerente Titular":
         metrica("💰 Incentivo Base Productividad", f"${incentivo_base:,.2f}")
         card_close()
         card_open("📋 Paso 2 — Evaluación Objetiva")
-        eval_obj = st.number_input("% Resultado de Evaluación Objetiva", min_value=0.0, max_value=100.0, step=0.01, format="%.2f", key="ger_eval")
+        eval_obj = st.number_input("% Resultado de Evaluación Objetiva",
+            min_value=0.0, max_value=100.0, step=0.01, format="%.2f", key="ger_eval")
         def mult_eval_fn(e):
             if e >= 98:   return 1.7
             elif e >= 96: return 1.5
@@ -324,7 +346,8 @@ elif puesto == "👔 Gerente Titular":
         metrica("✖️ Multiplicador Evaluación", f"×{mult_eval:.2f}")
         card_close()
         card_open("📦 Paso 3 — Faltante de Tienda")
-        pct_faltante = st.number_input("% Faltante de tienda", min_value=0.0, max_value=100.0, step=0.01, format="%.2f", key="ger_faltante")
+        pct_faltante = st.number_input("% Faltante de tienda",
+            min_value=0.0, max_value=100.0, step=0.01, format="%.2f", key="ger_faltante")
         def mult_falt_fn(f):
             if f < 1:      return 1.20
             elif f <= 1.5: return 1.10
