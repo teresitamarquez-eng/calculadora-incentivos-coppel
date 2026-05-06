@@ -1,0 +1,159 @@
+import streamlit as st
+
+# ─────────────────────────────────────────
+# CONFIGURACIÓN DE LA PÁGINA
+# ─────────────────────────────────────────
+st.set_page_config(
+    page_title="Calculadora de Incentivos Coppel",
+    page_icon="🏆",
+    layout="centered"
+)
+
+st.title("🏆 Calculadora de Incentivos Coppel")
+st.subheader("Puesto: Asesor de Ventas")
+st.divider()
+
+# ─────────────────────────────────────────
+# PASO 1 — VENTA EQUIPO
+# ─────────────────────────────────────────
+st.header("📦 Paso 1 — Venta de Equipo")
+
+cump_equipo = st.number_input(
+    "% Cumplimiento de meta del equipo",
+    min_value=0.0, max_value=200.0,
+    step=0.01, format="%.2f",
+    help="Ejemplo: escribe 95.5 para 95.5%"
+)
+
+def calcular_incentivo_base(cump):
+    if cump < 85:
+        return 0
+    elif cump < 95:
+        return 700
+    elif cump < 100:
+        return 850
+    elif cump < 110:
+        return 1150
+    elif cump < 120:
+        return 1400
+    else:
+        return 1750
+
+incentivo_base = calcular_incentivo_base(cump_equipo)
+st.metric("💰 Incentivo Base", f"${incentivo_base:,.2f}")
+st.divider()
+
+# ─────────────────────────────────────────
+# PASO 2 — MULTIPLICADORES
+# ─────────────────────────────────────────
+st.header("✖️ Paso 2 — Multiplicadores")
+
+col1, col2 = st.columns(2)
+with col1:
+    cump_credito = st.number_input(
+        "% Cumplimiento Venta a Crédito",
+        min_value=0.0, max_value=200.0,
+        step=0.01, format="%.2f"
+    )
+with col2:
+    cump_digital = st.number_input(
+        "% Cumplimiento Cliente Digital Avanzado",
+        min_value=0.0, max_value=200.0,
+        step=0.01, format="%.2f"
+    )
+
+multiplicador = 1.0
+if cump_credito >= 95:
+    multiplicador += 0.20
+    st.write("✅ Venta a Crédito ≥ 95% → +0.20")
+else:
+    st.write("❌ Venta a Crédito < 95% → +0.00")
+
+if cump_digital >= 95:
+    multiplicador += 0.15
+    st.write("✅ Cliente Digital Avanzado ≥ 95% → +0.15")
+else:
+    st.write("❌ Cliente Digital Avanzado < 95% → +0.00")
+
+st.metric("✖️ Multiplicador Total", f"×{multiplicador:.2f}")
+incentivo_con_mult = incentivo_base * multiplicador
+st.metric("💰 Incentivo Base × Multiplicador", f"${incentivo_con_mult:,.2f}")
+st.divider()
+
+# ─────────────────────────────────────────
+# PASO 3 — COMISIONES
+# ─────────────────────────────────────────
+st.header("💼 Paso 3 — Comisiones por Tipo de Venta")
+
+col3, col4 = st.columns(2)
+with col3:
+    venta_seguros = st.number_input(
+        "💊 Monto vendido — Seguros y Coppel Soluciones ($)",
+        min_value=0.0, step=100.0, format="%.2f"
+    )
+with col4:
+    venta_marketplace = st.number_input(
+        "🛒 Monto vendido — Marketplace (3P) y Campañas ($)",
+        min_value=0.0, step=100.0, format="%.2f"
+    )
+
+if cump_equipo >= 100:
+    pct_seguros, pct_marketplace, etiqueta = 0.04, 0.006, "Cump ≥ 100%"
+else:
+    pct_seguros, pct_marketplace, etiqueta = 0.015, 0.004, "Cump < 100%"
+
+comision_seguros     = venta_seguros * pct_seguros
+comision_marketplace = venta_marketplace * pct_marketplace
+total_comisiones     = comision_seguros + comision_marketplace
+
+st.write(f"📌 Aplicando tasas para: **{etiqueta}**")
+col5, col6, col7 = st.columns(3)
+col5.metric("Comisión Seguros",     f"${comision_seguros:,.2f}",     f"{pct_seguros*100:.1f}%")
+col6.metric("Comisión Marketplace", f"${comision_marketplace:,.2f}", f"{pct_marketplace*100:.1f}%")
+col7.metric("Total Comisiones",     f"${total_comisiones:,.2f}")
+st.divider()
+
+# ─────────────────────────────────────────
+# PASO 4 — VENTA DE TIENDA
+# ─────────────────────────────────────────
+st.header("🏪 Paso 4 — Incentivo Extra por Venta de Tienda")
+
+cump_tienda = st.number_input(
+    "% Cumplimiento de meta de venta de la tienda",
+    min_value=0.0, max_value=200.0,
+    step=0.01, format="%.2f"
+)
+
+bono_tienda = 0.0
+if cump_tienda >= 100:
+    bono_tienda = 0.20
+    st.success("✅ Cumplimiento ≥ 100% — Aplica bono del 20%")
+else:
+    st.warning("⚠️ Cumplimiento < 100% — No aplica bono de tienda")
+st.divider()
+
+# ─────────────────────────────────────────
+# RESULTADO FINAL
+# ─────────────────────────────────────────
+st.header("🏁 Resultado Final")
+
+subtotal    = incentivo_con_mult + total_comisiones
+bono_extra  = subtotal * bono_tienda
+total_final = subtotal + bono_extra
+
+col8, col9 = st.columns(2)
+with col8:
+    st.write(f"• Incentivo Base:            **${incentivo_base:,.2f}**")
+    st.write(f"• × Multiplicador ({multiplicador:.2f}):   **${incentivo_con_mult:,.2f}**")
+    st.write(f"• + Comisiones:              **${total_comisiones:,.2f}**")
+    st.write(f"• Subtotal:                  **${subtotal:,.2f}**")
+    st.write(f"• + Bono Tienda (20%):       **${bono_extra:,.2f}**")
+with col9:
+    st.metric(
+        label="💵 INCENTIVO TOTAL",
+        value=f"${total_final:,.2f}",
+        delta=f"+${bono_extra:,.2f} bono tienda" if bono_tienda > 0 else "Sin bono tienda"
+    )
+
+st.divider()
+st.caption("Calculadora interna Coppel — Asesor de Ventas v1.0")
