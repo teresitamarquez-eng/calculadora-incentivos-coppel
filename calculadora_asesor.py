@@ -1,38 +1,31 @@
 import streamlit as st
 import os
+import base64
 
 st.set_page_config(
     page_title="Incentivos Coppel",
     page_icon="🏆",
     layout="centered",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="collapsed"
 )
 
 st.markdown("""
 <style>
 .stApp { background-color: #F0F4FF; font-family: 'Segoe UI', sans-serif; }
-
-/* ── Reducir espacios ── */
 .stNumberInput { margin-bottom: -20px !important; }
 .stMarkdown    { margin-bottom: -8px  !important; }
 div[data-testid="stVerticalBlock"] > div { gap: 0rem !important; }
 div.block-container { padding-top: 1rem !important; }
-section[data-testid="stSidebar"] > div { padding-top: 1rem !important; }
-
-/* ── Ocultar flecha de colapso del sidebar ── */
-button[data-testid="collapsedControl"] { display: none !important; }
-[data-testid="stSidebarCollapseButton"] { display: none !important; }
-
-/* ── Header ── */
+[data-testid="stSidebar"]                { display: none !important; }
+button[data-testid="collapsedControl"]   { display: none !important; }
+[data-testid="stSidebarCollapseButton"]  { display: none !important; }
 .header-coppel {
     background: linear-gradient(135deg, #003DA5, #0056D6);
     padding: 16px 20px; border-radius: 16px; text-align: center;
-    margin-bottom: 14px; box-shadow: 0 4px 12px rgba(0,61,165,0.3);
+    margin-bottom: 12px; box-shadow: 0 4px 12px rgba(0,61,165,0.3);
 }
-.header-coppel h1 { font-size: 1.4em; margin: 4px 0 0 0; color: #FFD100 !important; }
+.header-coppel h1 { font-size: 1.4em; margin: 6px 0 0 0; color: #FFD100 !important; }
 .header-coppel p  { margin: 4px 0 0 0; font-size: 0.9em; color: white; }
-
-/* ── Cards ── */
 .seccion-card {
     background: white; border-radius: 16px; padding: 14px 18px;
     margin-bottom: 10px; border-left: 5px solid #003DA5;
@@ -40,31 +33,25 @@ button[data-testid="collapsedControl"] { display: none !important; }
 }
 .seccion-titulo { color: #003DA5; font-size: 1em; font-weight: bold; margin-bottom: 2px; }
 .divider-azul   { border: none; border-top: 1.5px solid #003DA5; opacity: 0.2; margin: 6px 0 10px 0; }
-
-/* ── Resultado ── */
 .resultado-card {
     background: linear-gradient(135deg, #003DA5, #0056D6);
     border-radius: 16px; padding: 20px; text-align: center;
-    color: white; margin-top: 14px; box-shadow: 0 6px 20px rgba(0,61,165,0.4);
+    color: white; margin-top: 12px; box-shadow: 0 6px 20px rgba(0,61,165,0.4);
 }
 .resultado-total { font-size: 2.4em; font-weight: bold; color: #FFD100; }
 .resultado-label { font-size: 0.95em; color: white; margin-bottom: 6px; }
-
-/* ── Métricas ── */
-.metrica-box { background: #E8F0FF; border-radius: 12px; padding: 8px 10px; text-align: center; margin: 4px 0; }
+.metrica-box      { background: #E8F0FF; border-radius: 12px; padding: 8px 10px; text-align: center; margin: 4px 0; }
 .metrica-valor    { font-size: 1.3em; font-weight: bold; color: #003DA5; }
 .metrica-etiqueta { font-size: 0.75em; color: #555; }
-
-/* ── Chips ── */
 .chip-verde    { background-color: #D4EDDA; color: #155724; border-radius: 20px; padding: 3px 10px; font-size: 0.82em; display: inline-block; margin: 3px 0; }
 .chip-rojo     { background-color: #F8D7DA; color: #721C24; border-radius: 20px; padding: 3px 10px; font-size: 0.82em; display: inline-block; margin: 3px 0; }
 .chip-amarillo { background-color: #FFF3CD; color: #856404; border-radius: 20px; padding: 3px 10px; font-size: 0.82em; display: inline-block; margin: 3px 0; }
-
-/* ── Sidebar azul ── */
-[data-testid="stSidebar"] { background-color: #003DA5 !important; }
-[data-testid="stSidebar"] * { color: white !important; }
-
-/* ── Ocultar marca Streamlit ── */
+.stSelectbox > div > div {
+    background-color: white !important;
+    border: 2px solid #003DA5 !important;
+    border-radius: 12px !important;
+    font-size: 1em !important;
+}
 #MainMenu {visibility: hidden;} footer {visibility: hidden;} header {visibility: hidden;}
 </style>
 """, unsafe_allow_html=True)
@@ -85,19 +72,13 @@ def chip(tipo, texto):
 def resultado_final(total, desglose):
     st.markdown(f'<div class="resultado-card"><div class="resultado-label">🏆 TU INCENTIVO TOTAL DEL MES</div><div class="resultado-total">${total:,.2f}</div><br><div style="font-size:0.82em;color:#cce0ff;">{desglose}</div></div>', unsafe_allow_html=True)
 
-def header_puesto(titulo):
-    # Logo si existe + header azul
+def mostrar_header(subtitulo):
     logo_html = ""
     if os.path.exists("logo_coppel.png"):
-        import base64
         with open("logo_coppel.png", "rb") as f:
             logo_b64 = base64.b64encode(f.read()).decode()
-        logo_html = f'<img src="data:image/png;base64,{logo_b64}" style="height:38px; margin-bottom:6px;"><br>'
-    st.markdown(f'''<div class="header-coppel">
-        {logo_html}
-        <h1>🏆 Calculadora de Incentivos</h1>
-        <p>{titulo} — Coppel</p>
-    </div>''', unsafe_allow_html=True)
+        logo_html = f'<img src="data:image/png;base64,{logo_b64}" style="height:36px; margin-bottom:4px;"><br>'
+    st.markdown(f'<div class="header-coppel">{logo_html}<h1>🏆 Calculadora de Incentivos</h1><p>{subtitulo} — Coppel</p></div>', unsafe_allow_html=True)
 
 def incentivo_base_asesor(cump):
     if cump < 85:    return 0
@@ -134,31 +115,34 @@ def seccion_comisiones_asesor(cump_equipo, prefix):
     with col3: metrica("📊 Total Comisiones",     f"${total_comision:,.2f}")
     return total_comision
 
-# ── SIDEBAR ─────────────────────────────────────────────
-with st.sidebar:
-    # Logo en sidebar si existe
-    if os.path.exists("logo_coppel.png"):
-        st.image("logo_coppel.png", use_container_width=True)
-    else:
-        st.markdown("## 🏢 Coppel Incentivos")
-    st.markdown("---")
-    st.markdown("### 👤 Selecciona tu puesto:")
-    puesto = st.radio("", options=[
-        "🛒 Asesor de Ventas",
-        "📱 Asesor Telefonía",
-        "👁️ Optometrista",
-        "⚙️ Operativos",
-        "💰 Cajero Multifuncional",
-        "👔 Gerente Titular",
-    ], index=0)
-    st.markdown("---")
-    st.markdown("<small>Calculadora Interna Coppel v1.0</small>", unsafe_allow_html=True)
+# ── MENÚ SUPERIOR ───────────────────────────────────────
+logo_html = ""
+if os.path.exists("logo_coppel.png"):
+    with open("logo_coppel.png", "rb") as f:
+        logo_b64 = base64.b64encode(f.read()).decode()
+    logo_html = f'<img src="data:image/png;base64,{logo_b64}" style="height:40px; margin-bottom:6px;"><br>'
 
-# ════════════════════════════════════════════════════════
-# FUNCIÓN GENÉRICA — ASESOR
-# ════════════════════════════════════════════════════════
+st.markdown(f'''<div style="background:linear-gradient(135deg,#003DA5,#0056D6);
+    padding:16px 20px; border-radius:16px; text-align:center;
+    margin-bottom:12px; box-shadow:0 4px 12px rgba(0,61,165,0.3);">
+    {logo_html}
+    <span style="font-size:1.4em; font-weight:bold; color:#FFD100;">🏆 Incentivos Coppel</span><br>
+    <span style="color:white; font-size:0.88em;">Selecciona tu puesto para calcular tu incentivo</span>
+</div>''', unsafe_allow_html=True)
+
+puesto = st.selectbox("👤 ¿Cuál es tu puesto?", options=[
+    "🛒 Asesor de Ventas",
+    "📱 Asesor Telefonía",
+    "👁️ Optometrista",
+    "⚙️ Operativos",
+    "💰 Cajero Multifuncional",
+    "👔 Gerente Titular",
+])
+st.markdown('<hr class="divider-azul">', unsafe_allow_html=True)
+
+# ── FUNCIÓN GENÉRICA ASESOR ─────────────────────────────
 def pantalla_asesor(titulo, prefix):
-    header_puesto(titulo)
+    mostrar_header(titulo)
     card_open("🤝 Paso 1 — Venta de Equipo")
     cump_equipo = st.number_input("% Cumplimiento meta del equipo", min_value=0.0, max_value=200.0, step=0.01, format="%.2f", key=f"{prefix}_equipo")
     incentivo_base = incentivo_base_asesor(cump_equipo)
@@ -202,13 +186,13 @@ def pantalla_asesor(titulo, prefix):
         f"Base: ${incentivo_base:,.2f} | ×{multiplicador:.2f} = ${incentivo_con_mult:,.2f}<br>"
         f"Comisiones: ${total_comisiones:,.2f} | Bono Tienda: ${bono_extra:,.2f}")
 
-# ════════════ PUESTOS ════════════════════
+# ── PUESTOS ─────────────────────────────────────────────
 if   puesto == "🛒 Asesor de Ventas": pantalla_asesor("Asesor de Ventas", "av")
 elif puesto == "📱 Asesor Telefonía": pantalla_asesor("Asesor Telefonía",  "at")
 elif puesto == "👁️ Optometrista":     pantalla_asesor("Optometrista",      "opt")
 
 elif puesto == "⚙️ Operativos":
-    header_puesto("Operativos")
+    mostrar_header("Operativos")
     card_open("🏪 Paso 1 — Venta de Tienda")
     cump_tienda = st.number_input("% Cumplimiento meta de la tienda", min_value=0.0, max_value=200.0, step=0.01, format="%.2f", key="ope_tienda")
     def incentivo_operativo(c):
@@ -251,7 +235,7 @@ elif puesto == "⚙️ Operativos":
         f"Base: ${incentivo_base:,.2f} | Comisiones: ${total_comision:,.2f}")
 
 elif puesto == "💰 Cajero Multifuncional":
-    header_puesto("Cajero Multifuncional")
+    mostrar_header("Cajero Multifuncional")
     card_open("💳 Paso 1 — Cobranza")
     cump_cobranza = st.number_input("% Cumplimiento meta de cobranza", min_value=0.0, max_value=200.0, step=0.01, format="%.2f", key="caj_cobranza")
     def incentivo_cajero(c):
@@ -302,7 +286,7 @@ elif puesto == "💰 Cajero Multifuncional":
         f"Base: ${incentivo_base:,.2f} | ×{multiplicador:.2f} = ${incentivo_con_mult:,.2f}<br>Comisiones: ${total_comision:,.2f}")
 
 elif puesto == "👔 Gerente Titular":
-    header_puesto("Gerente Titular")
+    mostrar_header("Gerente Titular")
     card_open("⚠️ Requisito — Cumplimiento Mínimo de Tienda")
     cump_tienda = st.number_input("% Cumplimiento meta de venta de la tienda", min_value=0.0, max_value=200.0, step=0.01, format="%.2f", key="ger_tienda")
     if cump_tienda < 89:
