@@ -88,7 +88,7 @@ def header_azul(titulo, subtitulo):
             logo_b64 = base64.b64encode(f.read()).decode()
         st.markdown(
             "<div style='text-align:center;margin-bottom:0px;padding:6px 0px 0px 0px;'>"
-            "<img src='data:image/png;base64," + logo_b64 + "' style='height:120px;'>"
+            "<img src='data:image/png;base64," + logo_b64 + "' style='height:150px;'>"
             "</div>",
             unsafe_allow_html=True)
     html = "<div style='background:linear-gradient(135deg,#003DA5,#0056D6);"
