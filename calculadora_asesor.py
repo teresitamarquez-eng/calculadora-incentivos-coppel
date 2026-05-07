@@ -139,7 +139,7 @@ def seccion_comisiones_asesor(cump_equipo, prefix):
 header_azul("🏆 Incentivos Coppel", "Selecciona tu puesto para calcular tu incentivo")
 
 puesto = st.selectbox("👤 ¿Cual es tu puesto?", options=[
-    "🎯" Asesor de Ventas",
+    "🎯 Asesor de Ventas",
     "📱 Asesor Telefonia",
     "👁️ Optometrista",
     "⚙️ Operativos",
