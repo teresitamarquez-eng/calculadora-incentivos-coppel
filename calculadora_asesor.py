@@ -140,7 +140,7 @@ header_azul("🏆 Incentivos Coppel", "Selecciona tu puesto para calcular tu inc
 
 puesto = st.selectbox("👤 ¿Cual es tu puesto?", options=[
     "🎯 Asesor de Ventas",
-    "📱 Asesor Telefonia",
+    "📱 Asesor Telefonía",
     "👁️ Optometrista",
     "⚙️ Operativos",
     "💰 Cajero Multifuncional",
