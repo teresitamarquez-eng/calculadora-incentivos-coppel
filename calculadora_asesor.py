@@ -85,13 +85,19 @@ def resultado_final(total, desglose):
     st.markdown(html, unsafe_allow_html=True)
 
 def header_azul(titulo, subtitulo):
-    html = "<div style='background:linear-gradient(135deg,#003DA5,#0056D6);"
-    html += "padding:16px 20px;border-radius:16px;text-align:center;"
-    html += "margin-bottom:12px;box-shadow:0 4px 12px rgba(0,61,165,0.3);'>"
+    # Logo FUERA del azul sobre fondo claro
     if os.path.exists("logo_coppel.png"):
         with open("logo_coppel.png", "rb") as f:
             logo_b64 = base64.b64encode(f.read()).decode()
-        html += "<img src='data:image/png;base64," + logo_b64 + "' style='height:36px;margin-bottom:4px;'><br>"
+        st.markdown(
+            "<div style='text-align:center;margin-bottom:8px;padding:10px;'>"
+            "<img src='data:image/png;base64," + logo_b64 + "' style='height:55px;'>"
+            "</div>",
+            unsafe_allow_html=True)
+    # Header azul sin logo
+    html = "<div style='background:linear-gradient(135deg,#003DA5,#0056D6);"
+    html += "padding:16px 20px;border-radius:16px;text-align:center;"
+    html += "margin-bottom:12px;box-shadow:0 4px 12px rgba(0,61,165,0.3);'>"
     html += "<span style='font-size:1.4em;font-weight:bold;color:#FFD100;'>" + titulo + "</span><br>"
     html += "<span style='color:white;font-size:0.9em;'>" + subtitulo + "</span>"
     html += "</div>"
