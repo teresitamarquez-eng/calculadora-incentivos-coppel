@@ -124,7 +124,7 @@ def seccion_comisiones_asesor(cump_equipo, prefix):
     v_arm   = st.number_input("🔩 Servicio de Armado ($)",                 min_value=0.0, step=100.0, format="%.2f", key=prefix+"_arm")
     v_inst  = st.number_input("🔌 Servicio de Instalacion ($)",            min_value=0.0, step=100.0, format="%.2f", key=prefix+"_inst")
     divider()
-    st.markdown("**Marketplace y Campanas**")
+    st.markdown("**Marketplace y Campañas**")
     v_market = st.number_input("🛒 Venta Marketplace (3P) y Campanas ($)", min_value=0.0, step=100.0, format="%.2f", key=prefix+"_market")
     total_seguros  = (v_club + v_mrc + v_mplus + v_cel + v_gar + v_arm + v_inst) * pct_s
     total_market   = v_market * pct_m
