@@ -12,28 +12,24 @@ st.set_page_config(
 st.markdown("""
 <style>
 .stApp { background-color: #F0F4FF; font-family: 'Segoe UI', sans-serif; }
-div.block-container { padding-top: 1rem !important; padding-bottom: 1rem !important; }
+div.block-container { padding-top: 0.5rem !important; padding-bottom: 1rem !important; }
 [data-testid="stSidebar"] { display: none !important; }
 button[data-testid="collapsedControl"] { display: none !important; }
 [data-testid="stSidebarCollapseButton"] { display: none !important; }
-
-/* Reducir espacio entre widgets */
 div[data-testid="stVerticalBlock"] > div { gap: 0.3rem !important; }
-.stNumberInput > div { margin-bottom: 0px !important; }
-div[data-testid="stForm"] { border: none !important; }
 
-/* Contenedor de sección */
+/* Titulos de expanders en negritas y azul */
+div[data-testid="stExpander"] summary p {
+    font-size: 1.05em !important;
+    font-weight: bold !important;
+    color: #003DA5 !important;
+}
 div[data-testid="stExpander"] {
     border-left: 5px solid #003DA5 !important;
-    border-radius: 16px !important;
+    border-radius: 12px !important;
     background: white !important;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08) !important;
     margin-bottom: 8px !important;
-}
-div[data-testid="stExpander"] summary {
-    color: #003DA5 !important;
-    font-weight: bold !important;
-    font-size: 1em !important;
 }
 
 /* Chips */
@@ -41,7 +37,7 @@ div[data-testid="stExpander"] summary {
 .chip-rojo     { background-color: #F8D7DA; color: #721C24; border-radius: 20px; padding: 3px 10px; font-size: 0.82em; display: inline-block; margin: 2px 0; }
 .chip-amarillo { background-color: #FFF3CD; color: #856404; border-radius: 20px; padding: 3px 10px; font-size: 0.82em; display: inline-block; margin: 2px 0; }
 
-/* Métricas */
+/* Metricas */
 .metrica-box { background: #E8F0FF; border-radius: 12px; padding: 8px 10px; text-align: center; margin: 4px 0; }
 .metrica-valor { font-size: 1.3em; font-weight: bold; color: #003DA5; }
 .metrica-etiqueta { font-size: 0.75em; color: #555; }
@@ -55,7 +51,7 @@ div[data-testid="stExpander"] summary {
 .resultado-total { font-size: 2.4em; font-weight: bold; color: #FFD100; }
 .resultado-label { font-size: 0.95em; color: white; margin-bottom: 6px; }
 
-/* Línea azul */
+/* Linea azul */
 .divider-azul { border: none; border-top: 1.5px solid #003DA5; opacity: 0.2; margin: 6px 0 8px 0; }
 
 /* Selectbox */
@@ -68,7 +64,6 @@ div[data-testid="stExpander"] summary {
 </style>
 """, unsafe_allow_html=True)
 
-# ── HELPERS ─────────────────────────────────────────────
 def chip(tipo, texto):
     st.markdown("<span class='chip-" + tipo + "'>" + texto + "</span>", unsafe_allow_html=True)
 
@@ -84,27 +79,25 @@ def resultado_final(total, desglose):
     html += "</div>"
     st.markdown(html, unsafe_allow_html=True)
 
+def divider():
+    st.markdown("<hr class='divider-azul'>", unsafe_allow_html=True)
+
 def header_azul(titulo, subtitulo):
-    # Logo FUERA del azul sobre fondo claro
     if os.path.exists("logo_coppel.png"):
         with open("logo_coppel.png", "rb") as f:
             logo_b64 = base64.b64encode(f.read()).decode()
         st.markdown(
-            "<div style='text-align:center;margin-bottom:8px;padding:10px;'>"
-            "<img src='data:image/png;base64," + logo_b64 + "' style='height:55px;'>"
+            "<div style='text-align:center;margin-bottom:0px;padding:6px 0px 0px 0px;'>"
+            "<img src='data:image/png;base64," + logo_b64 + "' style='height:70px;'>"
             "</div>",
             unsafe_allow_html=True)
-    # Header azul sin logo
     html = "<div style='background:linear-gradient(135deg,#003DA5,#0056D6);"
     html += "padding:16px 20px;border-radius:16px;text-align:center;"
-    html += "margin-bottom:12px;box-shadow:0 4px 12px rgba(0,61,165,0.3);'>"
+    html += "margin-bottom:12px;margin-top:4px;box-shadow:0 4px 12px rgba(0,61,165,0.3);'>"
     html += "<span style='font-size:1.4em;font-weight:bold;color:#FFD100;'>" + titulo + "</span><br>"
     html += "<span style='color:white;font-size:0.9em;'>" + subtitulo + "</span>"
     html += "</div>"
     st.markdown(html, unsafe_allow_html=True)
-
-def divider():
-    st.markdown("<hr class='divider-azul'>", unsafe_allow_html=True)
 
 def incentivo_base_asesor(cump):
     if cump < 85:    return 0
@@ -146,7 +139,7 @@ header_azul("🏆 Incentivos Coppel", "Selecciona tu puesto para calcular tu inc
 
 puesto = st.selectbox("👤 ¿Cual es tu puesto?", options=[
     "🎯 Asesor de Ventas",
-    "📱 Asesor Telefonía",
+    "📱 Asesor Telefonia",
     "👁️ Optometrista",
     "⚙️ Operativos",
     "💰 Cajero Multifuncional",
@@ -154,10 +147,8 @@ puesto = st.selectbox("👤 ¿Cual es tu puesto?", options=[
 ])
 divider()
 
-# ── FUNCIÓN GENÉRICA ASESOR ─────────────────────────────
 def pantalla_asesor(titulo, prefix):
     header_azul("🏆 Calculadora de Incentivos", titulo + " — Coppel")
-
     with st.expander("🤝 Paso 1 — Venta de Equipo", expanded=True):
         cump_equipo = st.number_input("% Cumplimiento meta del equipo",
             min_value=0.0, max_value=200.0, step=0.01, format="%.2f", key=prefix+"_equipo")
@@ -166,7 +157,6 @@ def pantalla_asesor(titulo, prefix):
         elif cump_equipo < 100: chip("amarillo", "⚠️ Cumplimiento parcial")
         else:                   chip("verde",    "✅ Meta alcanzada")
         metrica("💰 Incentivo Base", "$" + "{:,.2f}".format(incentivo_base))
-
     with st.expander("✖️ Paso 2 — Multiplicadores", expanded=True):
         cump_credito = st.number_input("% Cumplimiento Venta a Credito",
             min_value=0.0, max_value=200.0, step=0.01, format="%.2f", key=prefix+"_credito")
@@ -187,23 +177,19 @@ def pantalla_asesor(titulo, prefix):
         col1, col2 = st.columns(2)
         with col1: metrica("✖️ Multiplicador",     "x" + "{:.2f}".format(multiplicador))
         with col2: metrica("💰 Con Multiplicador", "$" + "{:,.2f}".format(incentivo_con_mult))
-
-    with st.expander("💼 Paso 3 — Comisiones", expanded=True):
+    with st.expander("💼 Paso 3 — Comisiones por Tipo de Venta", expanded=True):
         total_comisiones = seccion_comisiones_asesor(cump_equipo, prefix)
-
     with st.expander("🏪 Paso 4 — Bono por Venta de Tienda", expanded=True):
         cump_tienda = st.number_input("% Cumplimiento meta de la tienda",
             min_value=0.0, max_value=200.0, step=0.01, format="%.2f", key=prefix+"_tienda")
         bono_tienda = 0.20 if cump_tienda >= 100 else 0.0
         if cump_tienda >= 100: chip("verde", "✅ Tienda >= 100% — Bono del 20%")
         else:                  chip("rojo",  "❌ Tienda < 100% — Sin bono")
-
     subtotal    = incentivo_con_mult + total_comisiones
     bono_extra  = subtotal * bono_tienda
     total_final = subtotal + bono_extra
-    desglose = "Base: $" + "{:,.2f}".format(incentivo_base)
-    desglose += " | x" + "{:.2f}".format(multiplicador)
-    desglose += " = $" + "{:,.2f}".format(incentivo_con_mult)
+    desglose  = "Base: $" + "{:,.2f}".format(incentivo_base)
+    desglose += " | x" + "{:.2f}".format(multiplicador) + " = $" + "{:,.2f}".format(incentivo_con_mult)
     desglose += "<br>Comisiones: $" + "{:,.2f}".format(total_comisiones)
     desglose += " | Bono Tienda: $" + "{:,.2f}".format(bono_extra)
     resultado_final(total_final, desglose)
@@ -228,7 +214,7 @@ elif puesto == "⚙️ Operativos":
         elif cump_tienda < 100: chip("amarillo", "⚠️ Cumplimiento parcial")
         else:                   chip("verde",    "✅ Meta alcanzada")
         metrica("💰 Incentivo Base", "$" + "{:,.2f}".format(incentivo_base))
-    with st.expander("💼 Paso 2 — Comisiones", expanded=True):
+    with st.expander("💼 Paso 2 — Comisiones por Tipo de Venta", expanded=True):
         pct_s, pct_m = (0.04, 0.006) if cump_tienda >= 100 else (0.015, 0.004)
         if cump_tienda >= 100: chip("verde",    "✅ Tasas Cump >= 100%: 4% | Marketplace 0.6%")
         else:                  chip("amarillo", "⚠️ Tasas Cump < 100%: 1.5% | Marketplace 0.4%")
@@ -242,8 +228,8 @@ elif puesto == "⚙️ Operativos":
         v_arm   = st.number_input("🔩 Servicio de Armado ($)",                 min_value=0.0, step=100.0, format="%.2f", key="ope_arm")
         v_inst  = st.number_input("🔌 Servicio de Instalacion ($)",            min_value=0.0, step=100.0, format="%.2f", key="ope_inst")
         divider()
-        st.markdown("**Marketplace y Campanas**")
-        v_market = st.number_input("🛒 Venta Marketplace (3P) ($)",            min_value=0.0, step=100.0, format="%.2f", key="ope_market")
+        st.markdown("**Marketplace y Campañas**")
+        v_market = st.number_input("🛒 Venta Marketplace (3P) y Campañas ($)", min_value=0.0, step=100.0, format="%.2f", key="ope_market")
         total_seguros  = (v_club + v_mrc + v_mplus + v_cel + v_gar + v_arm + v_inst) * pct_s
         total_market   = v_market * pct_m
         total_comision = total_seguros + total_market
@@ -300,22 +286,20 @@ elif puesto == "💰 Cajero Multifuncional":
         with col1: metrica("🛡️ Seguros",  "$" + "{:,.2f}".format(v_seguros  * pct_s))
         with col2: metrica("🔧 Posventa", "$" + "{:,.2f}".format(v_posventa * pct_s))
         metrica("📊 Total Comisiones", "$" + "{:,.2f}".format(total_comision))
-    desglose = "Base: $" + "{:,.2f}".format(incentivo_base)
+    desglose  = "Base: $" + "{:,.2f}".format(incentivo_base)
     desglose += " | x" + "{:.2f}".format(multiplicador) + " = $" + "{:,.2f}".format(incentivo_con_mult)
     desglose += "<br>Comisiones: $" + "{:,.2f}".format(total_comision)
     resultado_final(incentivo_con_mult + total_comision, desglose)
 
 elif puesto == "👔 Gerente Titular":
     header_azul("🏆 Calculadora de Incentivos", "Gerente Titular — Coppel")
-    with st.expander("⚠️ Requisito — Cumplimiento Minimo", expanded=True):
+    with st.expander("⚠️ Requisito — Cumplimiento Minimo de Tienda", expanded=True):
         cump_tienda = st.number_input("% Cumplimiento meta de venta de la tienda",
             min_value=0.0, max_value=200.0, step=0.01, format="%.2f", key="ger_tienda")
-        if cump_tienda < 89:
-            chip("rojo", "❌ < 89% — No se genera incentivo en ningun rubro")
-        else:
-            chip("verde", "✅ Requisito minimo cumplido (>= 89%)")
+        if cump_tienda < 89: chip("rojo",  "❌ < 89% — No se genera incentivo en ningun rubro")
+        else:                chip("verde", "✅ Requisito minimo cumplido (>= 89%)")
     if cump_tienda >= 89:
-        with st.expander("📊 Paso 1 — Productividad", expanded=True):
+        with st.expander("📊 Paso 1 — Productividad (Venta Tienda)", expanded=True):
             def incentivo_gerente(c):
                 if c < 95:    return 0
                 elif c < 100: return 2000
@@ -356,7 +340,7 @@ elif puesto == "👔 Gerente Titular":
             else:                   chip("rojo",     "❌ > 2%     → x0.80")
             metrica("✖️ Multiplicador Faltante", "x" + "{:.2f}".format(mult_falt))
         total_final = incentivo_base * mult_eval * mult_falt
-        desglose = "Base: $" + "{:,.2f}".format(incentivo_base)
+        desglose  = "Base: $" + "{:,.2f}".format(incentivo_base)
         desglose += " | xEval " + "{:.2f}".format(mult_eval)
         desglose += " | xFaltante " + "{:.2f}".format(mult_falt)
         resultado_final(total_final, desglose)
