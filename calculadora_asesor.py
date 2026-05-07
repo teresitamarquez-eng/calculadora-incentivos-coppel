@@ -139,7 +139,7 @@ def seccion_comisiones_asesor(cump_equipo, prefix):
 header_azul("🏆 Incentivos Coppel", "Selecciona tu puesto para calcular tu incentivo")
 
 puesto = st.selectbox("👤 ¿Cual es tu puesto?", options=[
-    "🛒 Asesor de Ventas",
+    "🎯" Asesor de Ventas",
     "📱 Asesor Telefonia",
     "👁️ Optometrista",
     "⚙️ Operativos",
@@ -202,7 +202,7 @@ def pantalla_asesor(titulo, prefix):
     desglose += " | Bono Tienda: $" + "{:,.2f}".format(bono_extra)
     resultado_final(total_final, desglose)
 
-if   puesto == "🛒 Asesor de Ventas": pantalla_asesor("Asesor de Ventas", "av")
+if   puesto == "🎯 Asesor de Ventas": pantalla_asesor("Asesor de Ventas", "av")
 elif puesto == "📱 Asesor Telefonia": pantalla_asesor("Asesor Telefonia",  "at")
 elif puesto == "👁️ Optometrista":     pantalla_asesor("Optometrista",      "opt")
 
