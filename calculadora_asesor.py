@@ -119,12 +119,13 @@ def header_azul(titulo, subtitulo):
     st.markdown(html, unsafe_allow_html=True)
 
 def incentivo_base_asesor(cump):
-    if cump < 85:    return 0
-    elif cump < 95:  return 700
-    elif cump < 100: return 850
-    elif cump < 110: return 1150
-    elif cump < 120: return 1400
-    else:            return 1750
+    if cump < 80:    return 0
+    elif cump < 90:  return 550
+    elif cump < 95:  return 800
+    elif cump < 100: return 1000
+    elif cump < 110: return 1300
+    elif cump < 120: return 1600
+    else:            return 1900
 
 def seccion_comisiones_asesor(cump_equipo, prefix):
     pct_s, pct_m = (0.04, 0.006) if cump_equipo >= 100 else (0.015, 0.004)
@@ -170,24 +171,24 @@ def pantalla_asesor(titulo, prefix):
     with st.expander("🤝 Paso 1 — Venta de Equipo", expanded=True):
         cump_equipo = leer_porcentaje("% Cumplimiento meta del equipo", "Ej: 95.5", prefix+"_equipo")
         incentivo_base = incentivo_base_asesor(cump_equipo)
-        if cump_equipo < 85:    chip("rojo",     "❌ < 85% — Sin incentivo base")
+        if cump_equipo < 80:    chip("rojo",     "❌ < 80% — Sin incentivo base")
         elif cump_equipo < 100: chip("amarillo", "⚠️ Cumplimiento parcial")
         else:                   chip("verde",    "✅ Meta alcanzada")
         metrica("💰 Incentivo Base", "$" + "{:,.2f}".format(incentivo_base))
     with st.expander("✖️ Paso 2 — Multiplicadores", expanded=True):
-        cump_credito = leer_porcentaje("% Cumplimiento Venta a Credito", "Ej: 96.0", prefix+"_credito")
-        cump_digital = leer_porcentaje("% Cumplimiento Cliente Digital Avanzado", "Ej: 97.0", prefix+"_digital")
+        cump_credito = leer_porcentaje("% Cumplimiento Venta a Credito", "Ej: 92.0", prefix+"_credito")
+        cump_digital = leer_porcentaje("% Cumplimiento Cliente Digital Avanzado", "Ej: 93.0", prefix+"_digital")
         multiplicador = 1.0
-        if cump_credito >= 95:
+        if cump_credito >= 90:
             multiplicador += 0.20
-            chip("verde", "✅ Venta a Credito >= 95% → +0.20")
+            chip("verde", "✅ Venta a Credito >= 90% → +0.20")
         else:
-            chip("rojo", "❌ Venta a Credito < 95% → +0.00")
-        if cump_digital >= 95:
+            chip("rojo", "❌ Venta a Credito < 90% → +0.00")
+        if cump_digital >= 90:
             multiplicador += 0.15
-            chip("verde", "✅ Cliente Digital >= 95% → +0.15")
+            chip("verde", "✅ Cliente Digital >= 90% → +0.15")
         else:
-            chip("rojo", "❌ Cliente Digital < 95% → +0.00")
+            chip("rojo", "❌ Cliente Digital < 90% → +0.00")
         incentivo_con_mult = incentivo_base * multiplicador
         col1, col2 = st.columns(2)
         with col1: metrica("✖️ Multiplicador",     "x" + "{:.2f}".format(multiplicador))
