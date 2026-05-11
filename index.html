@@ -2,15 +2,15 @@
 <html lang="es">
 <head>
     <script type="text/javascript">
-(function(c,l,a,r,i,t,y){
-c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-})(window, document, "clarity", "script", "wnznkro19i");
-</script>
+    (function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "wnznkro19i");
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Incentivos Coppel</title>
+    <title>Incentivos Retail</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -82,12 +82,12 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 
 <!-- LOGO -->
 <div class="logo-container">
-    <img src="logo_coppel.png" alt="Coppel" onerror="this.style.display='none'">
+    <img src="logo_coppel.png" alt="Logo" onerror="this.style.display='none'">
 </div>
 
 <!-- HEADER PRINCIPAL -->
 <div class="header">
-    <h1>🏆 Incentivos Coppel</h1>
+    <h1>🏆 Incentivos Retail</h1>
     <p>Selecciona tu puesto para calcular tu incentivo</p>
 </div>
 
@@ -111,7 +111,7 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 <div id="panelAsesor" class="puesto-content activo">
     <div class="header">
         <h1>🏆 Calculadora de Incentivos</h1>
-        <p id="tituloAsesor">Asesor de Ventas — Coppel</p>
+        <p id="tituloAsesor">Asesor de Ventas</p>
     </div>
 
     <div class="card">
@@ -145,7 +145,7 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
         <hr class="divider">
         <div id="av_chip_tasas"></div>
         <hr class="divider">
-        <p class="subtitulo">Seguros y Coppel Soluciones</p>
+        <p class="subtitulo">Seguros y Soluciones</p>
         <div class="input-group"><label>🛡️ Seguros Club de Protección ($)</label><input type="text" id="av_club" placeholder="Ej: 5000" oninput="calcularAsesor()"></div>
         <div class="input-group"><label>🏍️ Seguros Motos RC ($)</label><input type="text" id="av_mrc" placeholder="Ej: 3000" oninput="calcularAsesor()"></div>
         <div class="input-group"><label>🏍️ Seguros Motos PLUS ($)</label><input type="text" id="av_mplus" placeholder="Ej: 3000" oninput="calcularAsesor()"></div>
@@ -178,7 +178,7 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 <div id="panelOperativos" class="puesto-content">
     <div class="header">
         <h1>🏆 Calculadora de Incentivos</h1>
-        <p>Operativos — Coppel</p>
+        <p>Operativos</p>
     </div>
 
     <div class="card">
@@ -197,7 +197,7 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
         <hr class="divider">
         <div id="ope_chip_tasas"></div>
         <hr class="divider">
-        <p class="subtitulo">Seguros y Coppel Soluciones</p>
+        <p class="subtitulo">Seguros y Soluciones</p>
         <div class="input-group"><label>🛡️ Seguros Club de Protección ($)</label><input type="text" id="ope_club" placeholder="Ej: 5000" oninput="calcularOperativos()"></div>
         <div class="input-group"><label>🏍️ Seguros Motos RC ($)</label><input type="text" id="ope_mrc" placeholder="Ej: 3000" oninput="calcularOperativos()"></div>
         <div class="input-group"><label>🏍️ Seguros Motos PLUS ($)</label><input type="text" id="ope_mplus" placeholder="Ej: 3000" oninput="calcularOperativos()"></div>
@@ -220,7 +220,7 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 <div id="panelCajero" class="puesto-content">
     <div class="header">
         <h1>🏆 Calculadora de Incentivos</h1>
-        <p>Cajero Multifuncional — Coppel</p>
+        <p>Cajero Multifuncional</p>
     </div>
 
     <div class="card">
@@ -268,7 +268,7 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 <div id="panelGerente" class="puesto-content">
     <div class="header">
         <h1>🏆 Calculadora de Incentivos</h1>
-        <p>Gerente Titular — Coppel</p>
+        <p>Gerente Titular</p>
     </div>
 
     <div class="card">
@@ -315,10 +315,9 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     <div id="ger_resultado"></div>
 </div>
 
-<div class="footer">Calculadora Interna Coppel • v1.0 • Solo para uso interno</div>
+<div class="footer">Calculadora Interna • v1.0 • Solo para uso interno</div>
 
 <script>
-// ── UTILIDADES ──────────────────────────────────
 function leerNum(id) {
     var v = document.getElementById(id).value.replace(/,/g, '.').replace(/\$/g, '').replace(/ /g, '');
     var n = parseFloat(v);
@@ -341,7 +340,6 @@ function resultadoHTML(total, desglose) {
         + '<div class="resultado-desglose">' + desglose + '</div></div>';
 }
 
-// ── MOSTRAR/OCULTAR PUESTOS ─────────────────────
 function mostrarPuesto() {
     var sel = document.getElementById('selectorPuesto').value;
     var paneles = document.querySelectorAll('.puesto-content');
@@ -350,7 +348,7 @@ function mostrarPuesto() {
     if (sel === 'asesor' || sel === 'telefonia' || sel === 'optometrista') {
         document.getElementById('panelAsesor').classList.add('activo');
         var nombres = { asesor: 'Asesor de Ventas', telefonia: 'Asesor Telefonía', optometrista: 'Optometrista' };
-        document.getElementById('tituloAsesor').textContent = nombres[sel] + ' — Coppel';
+        document.getElementById('tituloAsesor').textContent = nombres[sel];
         calcularAsesor();
     } else if (sel === 'operativos') {
         document.getElementById('panelOperativos').classList.add('activo');
@@ -364,9 +362,6 @@ function mostrarPuesto() {
     }
 }
 
-// ══════════════════════════════════════════════════
-// CÁLCULO ASESOR / TELEFONÍA / OPTOMETRISTA
-// ══════════════════════════════════════════════════
 function calcularAsesor() {
     var ce = leerNum('av_equipo');
     var base = 0;
@@ -430,9 +425,6 @@ function calcularAsesor() {
     document.getElementById('av_resultado').innerHTML = resultadoHTML(total, desg);
 }
 
-// ══════════════════════════════════════════════════
-// CÁLCULO OPERATIVOS
-// ══════════════════════════════════════════════════
 function calcularOperativos() {
     var ct = leerNum('ope_tienda');
     var base = 0;
@@ -470,9 +462,6 @@ function calcularOperativos() {
     document.getElementById('ope_resultado').innerHTML = resultadoHTML(total, desg);
 }
 
-// ══════════════════════════════════════════════════
-// CÁLCULO CAJERO MULTIFUNCIONAL
-// ══════════════════════════════════════════════════
 function calcularCajero() {
     var cc = leerNum('caj_cobranza');
     var base = 0;
@@ -523,9 +512,6 @@ function calcularCajero() {
     document.getElementById('caj_resultado').innerHTML = resultadoHTML(total, desg);
 }
 
-// ══════════════════════════════════════════════════
-// CÁLCULO GERENTE TITULAR
-// ══════════════════════════════════════════════════
 function calcularGerente() {
     var ct = leerNum('ger_tienda');
 
@@ -587,7 +573,6 @@ function calcularGerente() {
     document.getElementById('ger_resultado').innerHTML = resultadoHTML(total, desg);
 }
 
-// Inicializar
 calcularAsesor();
 </script>
 
