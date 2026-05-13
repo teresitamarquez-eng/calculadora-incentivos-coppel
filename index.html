@@ -19,6 +19,7 @@
             padding: 12px;
             max-width: 600px;
             margin: 0 auto;
+        }
         .header {
             background: linear-gradient(135deg, #003DA5, #0056D6);
             padding: 16px 20px; border-radius: 16px; text-align: center;
@@ -77,11 +78,6 @@
 </head>
 <body>
 
-<!-- LOGO -->
-<div class="logo-container">
-    <img src="logo_coppel.png" alt="Logo" onerror="this.style.display='none'">
-</div>
-
 <!-- HEADER PRINCIPAL -->
 <div class="header">
     <h1>🏆 Incentivos Retail</h1>
@@ -102,15 +98,12 @@
 </div>
 <hr class="divider">
 
-<!-- ═══════════════════════════════════════════ -->
-<!-- ASESOR / TELEFONIA / OPTOMETRISTA          -->
-<!-- ═══════════════════════════════════════════ -->
+<!-- ASESOR / TELEFONIA / OPTOMETRISTA -->
 <div id="panelAsesor" class="puesto-content activo">
     <div class="header">
         <h1>🏆 Calculadora de Incentivos</h1>
         <p id="tituloAsesor">Asesor de Ventas</p>
     </div>
-
     <div class="card">
         <div class="card-titulo">🤝 Paso 1 — Venta de Equipo</div>
         <hr class="divider">
@@ -121,7 +114,6 @@
         <div id="av_chip_equipo"></div>
         <div id="av_metrica_base" class="metricas-row"></div>
     </div>
-
     <div class="card">
         <div class="card-titulo">✖️ Paso 2 — Multiplicadores</div>
         <hr class="divider">
@@ -136,7 +128,6 @@
         <div id="av_chip_mult"></div>
         <div id="av_metrica_mult" class="metricas-row"></div>
     </div>
-
     <div class="card">
         <div class="card-titulo">💼 Paso 3 — Comisiones por Tipo de Venta</div>
         <hr class="divider">
@@ -155,7 +146,6 @@
         <div class="input-group"><label>🛒 Venta Marketplace (3P) y Campañas ($)</label><input type="text" id="av_market" placeholder="Ej: 10000" oninput="calcularAsesor()"></div>
         <div id="av_metrica_comisiones" class="metricas-row"></div>
     </div>
-
     <div class="card">
         <div class="card-titulo">🏪 Paso 4 — Bono por Venta de Tienda</div>
         <hr class="divider">
@@ -165,19 +155,15 @@
         </div>
         <div id="av_chip_tienda"></div>
     </div>
-
     <div id="av_resultado"></div>
 </div>
 
-<!-- ═══════════════════════════════════════════ -->
-<!-- OPERATIVOS                                 -->
-<!-- ═══════════════════════════════════════════ -->
+<!-- OPERATIVOS -->
 <div id="panelOperativos" class="puesto-content">
     <div class="header">
         <h1>🏆 Calculadora de Incentivos</h1>
         <p>Operativos</p>
     </div>
-
     <div class="card">
         <div class="card-titulo">🏪 Paso 1 — Venta de Tienda</div>
         <hr class="divider">
@@ -188,7 +174,6 @@
         <div id="ope_chip_tienda"></div>
         <div id="ope_metrica_base" class="metricas-row"></div>
     </div>
-
     <div class="card">
         <div class="card-titulo">💼 Paso 2 — Comisiones por Tipo de Venta</div>
         <hr class="divider">
@@ -207,19 +192,15 @@
         <div class="input-group"><label>🛒 Venta Marketplace (3P) y Campañas ($)</label><input type="text" id="ope_market" placeholder="Ej: 10000" oninput="calcularOperativos()"></div>
         <div id="ope_metrica_comisiones" class="metricas-row"></div>
     </div>
-
     <div id="ope_resultado"></div>
 </div>
 
-<!-- ═══════════════════════════════════════════ -->
-<!-- CAJERO MULTIFUNCIONAL                      -->
-<!-- ═══════════════════════════════════════════ -->
+<!-- CAJERO MULTIFUNCIONAL -->
 <div id="panelCajero" class="puesto-content">
     <div class="header">
         <h1>🏆 Calculadora de Incentivos</h1>
         <p>Cajero Multifuncional</p>
     </div>
-
     <div class="card">
         <div class="card-titulo">💳 Paso 1 — Cobranza</div>
         <hr class="divider">
@@ -230,7 +211,6 @@
         <div id="caj_chip_cobranza"></div>
         <div id="caj_metrica_base" class="metricas-row"></div>
     </div>
-
     <div class="card">
         <div class="card-titulo">✖️ Paso 2 — Multiplicadores</div>
         <hr class="divider">
@@ -245,7 +225,6 @@
         <div id="caj_chip_mult"></div>
         <div id="caj_metrica_mult" class="metricas-row"></div>
     </div>
-
     <div class="card">
         <div class="card-titulo">💼 Paso 3 — Comisiones por Servicios</div>
         <hr class="divider">
@@ -255,19 +234,15 @@
         <div class="input-group"><label>🔧 Posventa ($)</label><input type="text" id="caj_posventa" placeholder="Ej: 3000" oninput="calcularCajero()"></div>
         <div id="caj_metrica_comisiones" class="metricas-row"></div>
     </div>
-
     <div id="caj_resultado"></div>
 </div>
 
-<!-- ═══════════════════════════════════════════ -->
-<!-- GERENTE TITULAR                            -->
-<!-- ═══════════════════════════════════════════ -->
+<!-- GERENTE TITULAR -->
 <div id="panelGerente" class="puesto-content">
     <div class="header">
         <h1>🏆 Calculadora de Incentivos</h1>
         <p>Gerente Titular</p>
     </div>
-
     <div class="card">
         <div class="card-titulo">⚠️ Requisito — Cumplimiento Mínimo de Tienda</div>
         <hr class="divider">
@@ -277,7 +252,6 @@
         </div>
         <div id="ger_chip_requisito"></div>
     </div>
-
     <div id="ger_pasos">
         <div class="card">
             <div class="card-titulo">📊 Paso 1 — Productividad (Venta Tienda)</div>
@@ -285,7 +259,6 @@
             <div id="ger_chip_prod"></div>
             <div id="ger_metrica_base" class="metricas-row"></div>
         </div>
-
         <div class="card">
             <div class="card-titulo">📋 Paso 2 — Evaluación Objetiva</div>
             <hr class="divider">
@@ -296,7 +269,6 @@
             <div id="ger_chip_eval"></div>
             <div id="ger_metrica_eval" class="metricas-row"></div>
         </div>
-
         <div class="card">
             <div class="card-titulo">📦 Paso 3 — Faltante de Tienda</div>
             <hr class="divider">
@@ -308,7 +280,6 @@
             <div id="ger_metrica_falt" class="metricas-row"></div>
         </div>
     </div>
-
     <div id="ger_resultado"></div>
 </div>
 
@@ -341,10 +312,9 @@ function mostrarPuesto() {
     var sel = document.getElementById('selectorPuesto').value;
     var paneles = document.querySelectorAll('.puesto-content');
     for (var i = 0; i < paneles.length; i++) paneles[i].classList.remove('activo');
-
     if (sel === 'asesor' || sel === 'telefonia' || sel === 'optometrista') {
         document.getElementById('panelAsesor').classList.add('activo');
-        var nombres = { asesor: 'Asesor de Ventas', telefonia: 'Asesor Telefonía', optometrista: 'Optometrista' };
+        var nombres = { asesor: 'Asesor de Ventas', telefonia: 'Asesor Telefonia', optometrista: 'Optometrista' };
         document.getElementById('tituloAsesor').textContent = nombres[sel];
         calcularAsesor();
     } else if (sel === 'operativos') {
@@ -363,8 +333,8 @@ function calcularAsesor() {
     var ce = leerNum('av_equipo');
     var base = 0;
     if (ce < 80) base = 0;
-    else if (ce < 90) base = 550;
-    else if (ce < 95) base = 800;
+    else if (ce < 90) base = 500;
+    else if (ce < 95) base = 750;
     else if (ce < 100) base = 1000;
     else if (ce < 110) base = 1300;
     else if (ce < 120) base = 1600;
@@ -381,8 +351,8 @@ function calcularAsesor() {
     var cd = leerNum('av_digital');
     var mult = 1.0;
     var chipM = '';
-    if (cc >= 90) { mult += 0.20; chipM += chipHTML('verde', '✅ Venta a Crédito >= 90% → +0.20'); }
-    else chipM += chipHTML('rojo', '❌ Venta a Crédito < 90% → +0.00');
+    if (cc >= 90) { mult += 0.20; chipM += chipHTML('verde', '✅ Venta a Credito >= 90% → +0.20'); }
+    else chipM += chipHTML('rojo', '❌ Venta a Credito < 90% → +0.00');
     chipM += '<br>';
     if (cd >= 90) { mult += 0.15; chipM += chipHTML('verde', '✅ Cliente Digital >= 90% → +0.15'); }
     else chipM += chipHTML('rojo', '❌ Cliente Digital < 90% → +0.00');
@@ -479,8 +449,8 @@ function calcularCajero() {
     var centro = leerNum('caj_centro');
     var mult = 1.0;
     var chipM = '';
-    if (credito >= 60) { mult += 0.15; chipM += chipHTML('verde', '✅ Venta a Crédito >= 60% → +0.15'); }
-    else chipM += chipHTML('rojo', '❌ Venta a Crédito < 60% → +0.00');
+    if (credito >= 60) { mult += 0.15; chipM += chipHTML('verde', '✅ Venta a Credito >= 60% → +0.15'); }
+    else chipM += chipHTML('rojo', '❌ Venta a Credito < 60% → +0.00');
     chipM += '<br>';
     if (centro >= 100) { mult += 0.15; chipM += chipHTML('verde', '✅ Venta Centro >= 100% → +0.15'); }
     else chipM += chipHTML('rojo', '❌ Venta Centro < 100% → +0.00');
@@ -513,12 +483,12 @@ function calcularGerente() {
     var ct = leerNum('ger_tienda');
 
     if (ct < 89) {
-        document.getElementById('ger_chip_requisito').innerHTML = chipHTML('rojo', '❌ < 89% — No se genera incentivo en ningún rubro');
+        document.getElementById('ger_chip_requisito').innerHTML = chipHTML('rojo', '❌ < 89% — No se genera incentivo en ningun rubro');
         document.getElementById('ger_pasos').style.display = 'none';
-        document.getElementById('ger_resultado').innerHTML = resultadoHTML(0, 'Cumplimiento mínimo no alcanzado (89%)');
+        document.getElementById('ger_resultado').innerHTML = resultadoHTML(0, 'Cumplimiento minimo no alcanzado (89%)');
         return;
     }
-    document.getElementById('ger_chip_requisito').innerHTML = chipHTML('verde', '✅ Requisito mínimo cumplido (>= 89%)');
+    document.getElementById('ger_chip_requisito').innerHTML = chipHTML('verde', '✅ Requisito minimo cumplido (>= 89%)');
     document.getElementById('ger_pasos').style.display = 'block';
 
     var base = 0;
@@ -548,7 +518,7 @@ function calcularGerente() {
     else if (multEval === 1.2) chipE = chipHTML('amarillo', '⚠️ 90-95% → x1.20');
     else chipE = chipHTML('rojo', '❌ 0-89% → x1.00');
     document.getElementById('ger_chip_eval').innerHTML = chipE;
-    document.getElementById('ger_metrica_eval').innerHTML = metricaHTML('✖️ Multiplicador Evaluación', 'x' + multEval.toFixed(2));
+    document.getElementById('ger_metrica_eval').innerHTML = metricaHTML('✖️ Multiplicador Evaluacion', 'x' + multEval.toFixed(2));
 
     var fa = leerNum('ger_faltante');
     var multFalt = 0.80;
