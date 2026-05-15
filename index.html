@@ -1,4 +1,4 @@
-ode = r'''<!DOCTYPE html>
+code = '''<!DOCTYPE html>
 <html lang="es">
 <head>
 <script type="text/javascript">
@@ -77,11 +77,13 @@ color: white; margin-top: 12px; box-shadow: 0 6px 20px rgba(0,61,165,0.4);
 </style>
 </head>
 <body>
+
 <!-- HEADER PRINCIPAL -->
 <div class="header">
 <h1>🏆 Incentivos Retail</h1>
 <p>Selecciona tu puesto para calcular tu incentivo</p>
 </div>
+
 <!-- SELECTOR DE PUESTO -->
 <div class="selector-container">
 <label>👤 ¿Cuál es tu puesto?</label>
@@ -98,6 +100,7 @@ color: white; margin-top: 12px; box-shadow: 0 6px 20px rgba(0,61,165,0.4);
 
 <!-- ============================================== -->
 <!-- ASESOR / TELEFONIA / OPTOMETRISTA -->
+<!-- Orden: Equipo → Multiplicadores → Comisiones → Tienda -->
 <!-- ============================================== -->
 <div id="panelAsesor" class="puesto-content activo">
 <div class="header">
@@ -117,29 +120,9 @@ color: white; margin-top: 12px; box-shadow: 0 6px 20px rgba(0,61,165,0.4);
 <div id="av_metrica_base" class="metricas-row"></div>
 </div>
 
-<!-- PASO 2 - COMISIONES (antes era Paso 3) -->
+<!-- PASO 2 - MULTIPLICADORES -->
 <div class="card">
-<div class="card-titulo">💼 Paso 2 — Comisiones por Tipo de Venta</div>
-<hr class="divider">
-<div id="av_chip_tasas"></div>
-<hr class="divider">
-<p class="subtitulo">Seguros y Coppel Soluciones</p>
-<div class="input-group"><label>🛡️ Seguros Club de Protección ($)</label><input type="text" id="av_club" placeholder="Ej: 5000" oninput="calcularAsesor()"></div>
-<div class="input-group"><label>🏍️ Seguros Motos RC ($)</label><input type="text" id="av_mrc" placeholder="Ej: 3000" oninput="calcularAsesor()"></div>
-<div class="input-group"><label>🏍️ Seguros Motos PLUS ($)</label><input type="text" id="av_mplus" placeholder="Ej: 3000" oninput="calcularAsesor()"></div>
-<div class="input-group"><label>📱 Seguros Celulares ($)</label><input type="text" id="av_cel" placeholder="Ej: 2000" oninput="calcularAsesor()"></div>
-<div class="input-group"><label>🔧 Garantía Extendida ($)</label><input type="text" id="av_gar" placeholder="Ej: 1500" oninput="calcularAsesor()"></div>
-<div class="input-group"><label>🔩 Servicio de Armado ($)</label><input type="text" id="av_arm" placeholder="Ej: 800" oninput="calcularAsesor()"></div>
-<div class="input-group"><label>🔌 Servicio de Instalación ($)</label><input type="text" id="av_inst" placeholder="Ej: 600" oninput="calcularAsesor()"></div>
-<hr class="divider">
-<p class="subtitulo">Marketplace y Campañas</p>
-<div class="input-group"><label>🛒 Venta Marketplace (3P) y Campañas ($)</label><input type="text" id="av_market" placeholder="Ej: 10000" oninput="calcularAsesor()"></div>
-<div id="av_metrica_comisiones" class="metricas-row"></div>
-</div>
-
-<!-- PASO 3 - MULTIPLICADORES (antes era Paso 2) -->
-<div class="card">
-<div class="card-titulo">✖️ Paso 3 — Multiplicadores</div>
+<div class="card-titulo">✖️ Paso 2 — Multiplicadores</div>
 <hr class="divider">
 <div class="input-group">
 <label>% Cumplimiento Venta a Crédito (Tienda)</label>
@@ -151,6 +134,23 @@ color: white; margin-top: 12px; box-shadow: 0 6px 20px rgba(0,61,165,0.4);
 </div>
 <div id="av_chip_mult"></div>
 <div id="av_metrica_mult" class="metricas-row"></div>
+</div>
+
+<!-- PASO 3 - COMISIONES -->
+<div class="card">
+<div class="card-titulo">💼 Paso 3 — Comisiones por Tipo de Venta</div>
+<hr class="divider">
+<div id="av_chip_tasas"></div>
+<hr class="divider">
+<p class="subtitulo">Seguros y Coppel Soluciones</p>
+<div class="input-group"><label>🛡️ Seguros Club de Protección ($)</label><input type="text" id="av_club" placeholder="Ej: 5000" oninput="calcularAsesor()"></div>
+<div class="input-group"><label>🏍️ Seguros Motos RC ($)</label><input type="text" id="av_mrc" placeholder="Ej: 3000" oninput="calcularAsesor()"></div>
+<div class="input-group"><label>🏍️ Seguros Motos PLUS ($)</label><input type="text" id="av_mplus" placeholder="Ej: 3000" oninput="calcularAsesor()"></div>
+<div class="input-group"><label>📱 Seguros Celulares ($)</label><input type="text" id="av_cel" placeholder="Ej: 2000" oninput="calcularAsesor()"></div>
+<div class="input-group"><label>🔧 Garantía Extendida ($)</label><input type="text" id="av_gar" placeholder="Ej: 1500" oninput="calcularAsesor()"></div>
+<div class="input-group"><label>🔩 Servicio de Armado ($)</label><input type="text" id="av_arm" placeholder="Ej: 800" oninput="calcularAsesor()"></div>
+<div class="input-group"><label>🔌 Servicio de Instalación ($)</label><input type="text" id="av_inst" placeholder="Ej: 600" oninput="calcularAsesor()"></div>
+<div id="av_metrica_comisiones" class="metricas-row"></div>
 </div>
 
 <!-- PASO 4 - BONO VENTA TIENDA -->
@@ -198,9 +198,6 @@ color: white; margin-top: 12px; box-shadow: 0 6px 20px rgba(0,61,165,0.4);
 <div class="input-group"><label>🔧 Garantía Extendida ($)</label><input type="text" id="ope_gar" placeholder="Ej: 1500" oninput="calcularOperativos()"></div>
 <div class="input-group"><label>🔩 Servicio de Armado ($)</label><input type="text" id="ope_arm" placeholder="Ej: 800" oninput="calcularOperativos()"></div>
 <div class="input-group"><label>🔌 Servicio de Instalación ($)</label><input type="text" id="ope_inst" placeholder="Ej: 600" oninput="calcularOperativos()"></div>
-<hr class="divider">
-<p class="subtitulo">Marketplace y Campañas</p>
-<div class="input-group"><label>🛒 Venta Marketplace (3P) y Campañas ($)</label><input type="text" id="ope_market" placeholder="Ej: 10000" oninput="calcularOperativos()"></div>
 <div id="ope_metrica_comisiones" class="metricas-row"></div>
 </div>
 <div id="ope_resultado"></div>
@@ -298,18 +295,18 @@ color: white; margin-top: 12px; box-shadow: 0 6px 20px rgba(0,61,165,0.4);
 <div id="ger_resultado"></div>
 </div>
 
-<div class="footer">Calculadora Interna • v2.0 • Solo para uso interno</div>
+<div class="footer">Calculadora Interna • v2.2 • Solo para uso interno</div>
 
 <script>
 /* =====================================================
 FUNCIONES UTILITARIAS
 ===================================================== */
 function leerNum(id) {
-var v = document.getElementById(id).value.replace(/,/g, '.').replace(/\$/g, '').replace(/ /g, '');
+var v = document.getElementById(id).value.replace(/,/g, '.').replace(/\\$/g, '').replace(/ /g, '');
 var n = parseFloat(v);
 return isNaN(n) ? 0 : Math.max(0, n);
 }
-function fmt(n) { return '$' + n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+function fmt(n) { return '$' + n.toFixed(2).replace(/\\B(?=(\\d{3})+(?!\\d))/g, ','); }
 function chipHTML(tipo, texto) {
 return '<span class="chip chip-' + tipo + '">' + texto + '</span>';
 }
@@ -349,11 +346,10 @@ calcularGerente();
 /* =====================================================
 ASESOR DE VENTAS / TELEFONÍA / OPTOMETRISTA
 -------------------------------------------------
-AJUSTES v2.0:
-1. Comisiones: 0% si <80% | 2% si >=80% | 4% si >=100%
-2. Multiplicadores: ambos +20% (digital era 15%, ahora 20%)
-3. Multiplicadores = % ADICIONAL sobre (Equipo + Comisiones)
-4. Orden lógico: Equipo → Comisiones → Multiplicadores → Tienda
+Paso 1 → Venta de Equipo
+Paso 2 → Multiplicadores
+Paso 3 → Comisiones (solo Seguros y Coppel Soluciones)
+Paso 4 → Bono Venta de Tienda
 ===================================================== */
 function calcularAsesor() {
 var ce = leerNum('av_equipo');
@@ -375,42 +371,7 @@ else chipEq = chipHTML('verde', '✅ Meta alcanzada');
 document.getElementById('av_chip_equipo').innerHTML = chipEq;
 document.getElementById('av_metrica_base').innerHTML = metricaHTML('💰 Incentivo Equipo', fmt(base));
 
-/* ---- PASO 2: COMISIONES ---- */
-/* AJUSTE: 0% si <80%, 2% si >=80% y <100%, 4% si >=100% */
-var pctS = 0;
-var pctM = 0;
-var etiquetaTasa = '';
-if (ce >= 100) {
-pctS = 0.04;
-pctM = 0.04;
-etiquetaTasa = chipHTML('verde', '✅ Cumpl ≥ 100% → Seguros/Soluciones 4% | Marketplace 4%');
-} else if (ce >= 80) {
-pctS = 0.02;
-pctM = 0.02;
-etiquetaTasa = chipHTML('amarillo', '⚠️ Cumpl ≥ 80% → Seguros/Soluciones 2% | Marketplace 2%');
-} else {
-pctS = 0;
-pctM = 0;
-etiquetaTasa = chipHTML('rojo', '❌ Cumpl < 80% → Sin comisiones');
-}
-document.getElementById('av_chip_tasas').innerHTML = etiquetaTasa;
-
-var vClub = leerNum('av_club'), vMrc = leerNum('av_mrc'), vMplus = leerNum('av_mplus');
-var vCel = leerNum('av_cel'), vGar = leerNum('av_gar');
-var vArm = leerNum('av_arm'), vInst = leerNum('av_inst');
-var vMarket = leerNum('av_market');
-
-var totalSeg = (vClub + vMrc + vMplus + vCel + vGar + vArm + vInst) * pctS;
-var totalMkt = vMarket * pctM;
-var totalCom = totalSeg + totalMkt;
-
-document.getElementById('av_metrica_comisiones').innerHTML =
-metricaHTML('🛡️ Seguros/Soluc.', fmt(totalSeg)) +
-metricaHTML('🛒 Marketplace', fmt(totalMkt)) +
-metricaHTML('📊 Total Comisiones', fmt(totalCom));
-
-/* ---- PASO 3: MULTIPLICADORES ---- */
-/* AJUSTE: ambos son +20%, se aplican sobre (Equipo + Comisiones) */
+/* ---- PASO 2: MULTIPLICADORES (inputs) ---- */
 var cc = leerNum('av_credito');
 var cd = leerNum('av_digital');
 var pctMultCredito = (cc > 90) ? 0.20 : 0;
@@ -425,6 +386,30 @@ if (cd > 90) chipM += chipHTML('verde', '✅ Cliente Digital Avanz. > 90% → +2
 else chipM += chipHTML('rojo', '❌ Cliente Digital Avanz. ≤ 90% → +0%');
 document.getElementById('av_chip_mult').innerHTML = chipM;
 
+/* ---- PASO 3: COMISIONES (solo Seguros y Coppel Soluciones) ---- */
+var pctS = 0, etiquetaTasa = '';
+if (ce >= 100) {
+pctS = 0.04;
+etiquetaTasa = chipHTML('verde', '✅ Cumpl ≥ 100% → Seguros/Soluciones 4%');
+} else if (ce >= 80) {
+pctS = 0.02;
+etiquetaTasa = chipHTML('amarillo', '⚠️ Cumpl ≥ 80% → Seguros/Soluciones 2%');
+} else {
+pctS = 0;
+etiquetaTasa = chipHTML('rojo', '❌ Cumpl < 80% → Sin comisiones');
+}
+document.getElementById('av_chip_tasas').innerHTML = etiquetaTasa;
+
+var vClub = leerNum('av_club'), vMrc = leerNum('av_mrc'), vMplus = leerNum('av_mplus');
+var vCel = leerNum('av_cel'), vGar = leerNum('av_gar');
+var vArm = leerNum('av_arm'), vInst = leerNum('av_inst');
+
+var totalCom = (vClub + vMrc + vMplus + vCel + vGar + vArm + vInst) * pctS;
+
+document.getElementById('av_metrica_comisiones').innerHTML =
+metricaHTML('📊 Total Comisiones', fmt(totalCom));
+
+/* ---- Calcular monto de multiplicadores sobre (Equipo + Comisiones) ---- */
 var baseParaMult = base + totalCom;
 var montoMult = baseParaMult * pctMultTotal;
 
@@ -439,14 +424,15 @@ var subtotal = base + totalCom + montoMult;
 var bono = ct >= 100 ? 0.20 : 0.0;
 var bonoExtra = subtotal * bono;
 
-if (ct >= 100) document.getElementById('av_chip_tienda').innerHTML = chipHTML('verde', '✅ Tienda ≥ 100% → +20% sobre (Equipo + Comisiones + Multiplicadores)');
-else document.getElementById('av_chip_tienda').innerHTML = chipHTML('rojo', '❌ Tienda < 100% — Sin bono de tienda');
+if (ct >= 100)
+document.getElementById('av_chip_tienda').innerHTML = chipHTML('verde', '✅ Tienda ≥ 100% → +20% sobre (Equipo + Multiplicadores + Comisiones)');
+else
+document.getElementById('av_chip_tienda').innerHTML = chipHTML('rojo', '❌ Tienda < 100% — Sin bono de tienda');
 
 /* ---- TOTAL FINAL ---- */
 var total = subtotal + bonoExtra;
-
-var desg = 'Equipo: ' + fmt(base) + ' | Comisiones: ' + fmt(totalCom);
-desg += '<br>Multiplicadores (+' + (pctMultTotal * 100).toFixed(0) + '%): ' + fmt(montoMult);
+var desg = 'Equipo: ' + fmt(base) + ' | Multiplicadores (+' + (pctMultTotal * 100).toFixed(0) + '%): ' + fmt(montoMult);
+desg += '<br>Comisiones: ' + fmt(totalCom);
 desg += '<br>Bono Tienda (+' + (bono * 100).toFixed(0) + '%): ' + fmt(bonoExtra);
 document.getElementById('av_resultado').innerHTML = resultadoHTML(total, desg);
 }
@@ -471,21 +457,19 @@ document.getElementById('ope_chip_tienda').innerHTML = chipT;
 document.getElementById('ope_metrica_base').innerHTML = metricaHTML('💰 Incentivo Base', fmt(base));
 
 var pctS = ct >= 100 ? 0.04 : 0.015;
-var pctM = ct >= 100 ? 0.006 : 0.004;
-if (ct >= 100) document.getElementById('ope_chip_tasas').innerHTML = chipHTML('verde', '✅ Tasas Cump >= 100%: 4% | Marketplace 0.6%');
-else document.getElementById('ope_chip_tasas').innerHTML = chipHTML('amarillo', '⚠️ Tasas Cump < 100%: 1.5% | Marketplace 0.4%');
+if (ct >= 100)
+document.getElementById('ope_chip_tasas').innerHTML = chipHTML('verde', '✅ Tasas Cump >= 100%: 4%');
+else
+document.getElementById('ope_chip_tasas').innerHTML = chipHTML('amarillo', '⚠️ Tasas Cump < 100%: 1.5%');
 
 var vClub = leerNum('ope_club'), vMrc = leerNum('ope_mrc'), vMplus = leerNum('ope_mplus');
 var vCel = leerNum('ope_cel'), vGar = leerNum('ope_gar');
 var vArm = leerNum('ope_arm'), vInst = leerNum('ope_inst');
-var vMarket = leerNum('ope_market');
-var totalSeg = (vClub + vMrc + vMplus + vCel + vGar + vArm + vInst) * pctS;
-var totalMkt = vMarket * pctM;
-var totalCom = totalSeg + totalMkt;
+
+var totalCom = (vClub + vMrc + vMplus + vCel + vGar + vArm + vInst) * pctS;
+
 document.getElementById('ope_metrica_comisiones').innerHTML =
-metricaHTML('🛡️ Seguros', fmt(totalSeg)) +
-metricaHTML('🛒 Marketplace', fmt(totalMkt)) +
-metricaHTML('📊 Total', fmt(totalCom));
+metricaHTML('📊 Total Comisiones', fmt(totalCom));
 
 var total = base + totalCom;
 var desg = 'Base: ' + fmt(base) + ' | Comisiones: ' + fmt(totalCom);
@@ -528,11 +512,14 @@ metricaHTML('✖️ Multiplicador', 'x' + mult.toFixed(2)) +
 metricaHTML('💰 Con Multiplicador', fmt(conMult));
 
 var pctS = centro >= 100 ? 0.04 : 0.015;
-if (centro >= 100) document.getElementById('caj_chip_tasas').innerHTML = chipHTML('verde', '✅ Tasas Cump >= 100%: 4%');
-else document.getElementById('caj_chip_tasas').innerHTML = chipHTML('amarillo', '⚠️ Tasas Cump < 100%: 1.5%');
+if (centro >= 100)
+document.getElementById('caj_chip_tasas').innerHTML = chipHTML('verde', '✅ Tasas Cump >= 100%: 4%');
+else
+document.getElementById('caj_chip_tasas').innerHTML = chipHTML('amarillo', '⚠️ Tasas Cump < 100%: 1.5%');
 
 var vSeg = leerNum('caj_seguros'), vPos = leerNum('caj_posventa');
 var totalCom = (vSeg + vPos) * pctS;
+
 document.getElementById('caj_metrica_comisiones').innerHTML =
 metricaHTML('🛡️ Seguros', fmt(vSeg * pctS)) +
 metricaHTML('🔧 Posventa', fmt(vPos * pctS));
@@ -546,7 +533,7 @@ document.getElementById('caj_resultado').innerHTML = resultadoHTML(total, desg);
 }
 
 /* =====================================================
-GERENTE TITULAR (corregido error de sintaxis)
+GERENTE TITULAR
 ===================================================== */
 function calcularGerente() {
 var ct = leerNum('ger_tienda');
